@@ -4,12 +4,12 @@ import (
 	"gopkg.in/mgo.v2/bson"
 )
 
-type user struct {
-	createdAt 	date	`json:"creatAt" bson:"createAt"`
-	email 		string	`json:"email" bson:"email"`
-	firstName 	string	`json:"firstName" bson:"firstName"`
-	lastName 	string	`json:"lastName" bson:"lastName`
-	password 	string	`json:"password" bson:"password"`
-	lastUpVote 	date	`json:"lastUpVote" bson:"lastUpVote"`
-	id			bson.ObjectId	`json:"id" bson:"_id"`
+type User struct {
+	CreatedAt 	string	`json:"creatAt" bson:"createAt"`
+	Email 		string	`json:"email" bson:"email"`
+	FirstName 	string	`json:"firstName" bson:"firstName"`
+	LastName 	string	`json:"lastName" bson:"lastName`
+	Password 	string	`json:"password" bson:"password"`
+	LastUpVote 	string	`json:"lastUpVote" bson:"lastUpVote"`
+	Id			bson.ObjectId	`json:"id" bson:"_id"`
 }

@@ -1,29 +1,23 @@
 package main
 
 import (
-	"net/http"
-	"gopkg.in/mgo.v2"
-	"github.com/julienschmidt/httprouter"
-	"errors"
+	"context"
 
+	"example/kedubak-yanisdolivet/connect_db"
 	"example/kedubak-yanisdolivet/controllers"
+	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v2/middleware/cors"
 )
 
-func getSession() *mgo.Session
-{
-	s, err := mgo.Dial("mongodb://localhost:27107")
-	if err != nil {
-		panic(err)
-	}
-	return s
-}
-
-func main()
-{
-	r := httprouter.New()
-	uc := controllers.NewUserController(getSession())
-	r.GET("/user/me", uc.GetUser)
-	r.POST("/user/edit", uc.CreateUser)
-	r.DELETE("/user/remove", uc.DeleteUser)
-	http.ListenAndServe("localhost: 8080")
+func main() {
+	app := fiber.New()
+	Client := connect_db.ConnectDb()
+	defer func() {
+		if err := Client.Disconnect(context.TODO()); err != nil {
+			panic(err)
+		}
+	}()
+	app.Use(cors.New())
+	controllers.GetPostRequest(app, Client)
+	app.Listen(":8080")
 }
