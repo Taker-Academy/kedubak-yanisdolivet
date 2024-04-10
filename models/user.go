@@ -1,15 +1,17 @@
 package models
 
 import (
-	"gopkg.in/mgo.v2/bson"
+	"time"
+
+	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
 type User struct {
-	CreatedAt 	string	`json:"creatAt" bson:"createAt"`
-	Email 		string	`json:"email" bson:"email"`
-	FirstName 	string	`json:"firstName" bson:"firstName"`
-	LastName 	string	`json:"lastName" bson:"lastName`
-	Password 	string	`json:"password" bson:"password"`
-	LastUpVote 	string	`json:"lastUpVote" bson:"lastUpVote"`
-	Id			bson.ObjectId	`json:"id" bson:"_id"`
+	CreatedAt  time.Time          `bson:"createAt"`
+	Email      string             `bson:"email"`
+	FirstName  string             `bson:"firstName"`
+	LastName   string             `bson:"lastName"`
+	Password   string             `bson:"password"`
+	LastUpVote time.Time          `bson:"lastUpVote"`
+	Id         primitive.ObjectID `bson:"_id,omitempty"`
 }
